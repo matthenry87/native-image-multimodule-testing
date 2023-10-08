@@ -39,7 +39,6 @@ class Db1Config {
         Map<String, Object> properties = new HashMap<>();
         properties.put("hibernate.hbm2ddl.auto", "create-drop");
         properties.put("generate-ddl", "true");
-        properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
 
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(db1ServerDataSource);
