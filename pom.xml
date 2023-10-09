@@ -36,6 +36,11 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>com.fis.entapi.services</groupId>
+            <artifactId>native-image-metadata</artifactId>
+            <version>1.0.2</version>
+        </dependency>
     </dependencies>
 
     <build>
