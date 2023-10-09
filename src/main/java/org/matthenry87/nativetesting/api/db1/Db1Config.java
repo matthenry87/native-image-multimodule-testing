@@ -2,6 +2,9 @@ package org.matthenry87.nativetesting.api.db1;
 
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManagerFactory;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,6 +16,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -21,17 +25,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@RequiredArgsConstructor
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "db1EntityManagerFactory",
         transactionManagerRef = "db1TransactionManager",
         basePackages = "org.matthenry87.nativetesting.api.db1")
 class Db1Config {
 
+    private final DbConfigProps dbConfigProps;
+
     @Bean(name = "db1ServerDataSource")
-    @ConfigurationProperties("db1")
     HikariDataSource db1ServerDataSource() {
 
         return DataSourceBuilder.create()
+                .url(dbConfigProps.getUrl())
+                .username(dbConfigProps.getUsername())
+                .password(dbConfigProps.getPassword())
                 .type(HikariDataSource.class)
                 .build();
     }
@@ -61,4 +70,15 @@ class Db1Config {
         return new JpaTransactionManager(db1EntityManagerFactory);
     }
 
+}
+
+@Getter
+@Setter
+@Component
+@ConfigurationProperties("db1")
+class DbConfigProps {
+
+    private String url;
+    private String username;
+    private String password;
 }
