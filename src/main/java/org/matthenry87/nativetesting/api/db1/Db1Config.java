@@ -41,6 +41,7 @@ class Db1Config {
                 .url(dbConfigProps.getUrl())
                 .username(dbConfigProps.getUsername())
                 .password(dbConfigProps.getPassword())
+                .driverClassName("org.h2.Driver")
                 .type(HikariDataSource.class)
                 .build();
     }
