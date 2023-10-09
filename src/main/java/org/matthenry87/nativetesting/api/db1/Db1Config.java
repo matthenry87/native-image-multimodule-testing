@@ -66,7 +66,7 @@ class Db1Config {
     }
 
     @Bean(name = "db1TransactionManager")
-    public PlatformTransactionManager db1TransactionManager(@Autowired @Qualifier("db1EntityManagerFactory") EntityManagerFactory db1EntityManagerFactory) {
+    JpaTransactionManager db1TransactionManager(@Autowired @Qualifier("db1EntityManagerFactory") EntityManagerFactory db1EntityManagerFactory) {
 
         return new JpaTransactionManager(db1EntityManagerFactory);
     }
